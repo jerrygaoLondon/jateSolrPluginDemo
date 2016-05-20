@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Jatesolrplugindemo by jerrygaoLondon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Jatesolrplugindemo</h1>
+      <h2 class="project-tagline">Demo code for presenting JATE2.0 as content analysis tool in LREC 2016</h2>
+      <a href="https://github.com/jerrygaoLondon/jateSolrPluginDemo" class="btn">View on GitHub</a>
+      <a href="https://github.com/jerrygaoLondon/jateSolrPluginDemo/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jerrygaoLondon/jateSolrPluginDemo/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="jatesolrplugindemo" class="anchor" href="#jatesolrplugindemo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>jateSolrPluginDemo</h1>
+
+<p>Demo source code for presenting <a href="https://github.com/ziqizhang/jate">JATE2.0</a> as content analysis tool in LREC 2016</p>
+
+<h1>
+<a id="overview-of-jate20-plugin-mode" class="anchor" href="#overview-of-jate20-plugin-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview of JATE2.0 plugin mode</h1>
+
+<p>The JATE2.0 plugin mode is designed to enable JATE2.0 to work as a Solr plugin. This mode makes it easy to scale up and down for different sizes of corpus and is recommended when users need to index new or enrich existing index with domain specific terminologies, which can, e.g., support faceted search, boost query. A custom request handler can support to process candidate term extraction, scoring, ranking, filtering, indexing and export by a simply HTTP request.</p>
+
+<p>This demo is to demonstrate how JATE2.0 can be incorporated into Apache Solr as Content Analysis Tool. JATE2.0 are scalable, flexible and easy-to-use with your existing Solr engine. Just few steps of configuration with your Solr engine, you can fire off HTTP request to your Solr server. Hybrid search functionalities and faceted navigation are supported.</p>
+
+<p><img src="https://github.com/jerrygaoLondon/jateSolrPluginDemo/blob/master/solr_plugin_mode.JPG?raw=true" alt="solr plugin mode"></p>
+
+<p>For more details of JATE2 and how to configure, please refer to the <a href="https://github.com/ziqizhang/jate/wiki">JATE2.0 wiki</a>.</p>
+
+<h1>
+<a id="demo-implementation" class="anchor" href="#demo-implementation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo implementation</h1>
+
+<p>This demo is developed based on <a href="https://github.com/ziqizhang/jate">JATE2.0</a> and <a href="https://github.com/evolvingweb/ajax-solr">Ajax Solr</a>. After Solr sever and JATE2.0 are properly setted up, the documents can be populated by using Solr <a href="https://cwiki.apache.org/confluence/display/solr/Post+Tool">Post Tool</a>. After documents are indexed and stored in Solr server, there are two options to trigger term recognition with default setting provided. The first option is to simply fire off a POST request by cURL command line, e.g., <code>curl -X POST http://localhost:8983/solr/jateCore/termRecogniser</code>. Alternatively, you can simply click the "Term Recognition" in the demo page (see pic below) to send a ajax request to the server. After "indexing and tagging" process is completed, the documents will be enriched with domain specific candidate terms to support faceted navigation and search. You can then index more documents or re-index with a different setting (e.g., different ATE algorithm, different threshold strategy, different PoS patterns) or click "Clean all" to index a new corpus for analysis.</p>
+
+<p><img src="https://github.com/jerrygaoLondon/jateSolrPluginDemo/blob/master/knowledge_retrieval_demo_page.JPG?raw=true" alt="alt tag"></p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<h2>
+<a id="step-1-download-and-set-up-a-release-of-apache-solr" class="anchor" href="#step-1-download-and-set-up-a-release-of-apache-solr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1. Download and Set up a release of <a href="version%20%3E%205.x">Apache Solr</a>
+</h2>
+
+<h2>
+<a id="step-2-download-and-setup-latest-release-of-jate20" class="anchor" href="#step-2-download-and-setup-latest-release-of-jate20" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2. Download and Setup latest release of <a href="https://github.com/ziqizhang/jate">JATE2.0</a>
+</h2>
+
+<p>To run the demo, you need to <strong>1)</strong> download and set up a release of <a href="version%20%3E%205.x">Apache Solr</a>; <strong>2)</strong> download and setup latest release of <a href="https://github.com/ziqizhang/jate">JATE2.0</a>.</p>
+
+<h1>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h1>
+
+<p>The configuration of the demo can be divided into two parts, including Apache Solr with JATE2.0 plugin and ajax solr web demo.</p>
+
+<h2>
+<a id="apache-solr-with-jate20-plugin" class="anchor" href="#apache-solr-with-jate20-plugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Apache Solr with JATE2.0 plugin</h2>
+
+<p>First, you need to set up Solr and JATE2.0 plugin. This assumes that you have the basic knowledge of Apache Solr and <a href="https://cwiki.apache.org/confluence/display/solr/Solr+Plugins">solr plugin</a>. Please refer to <a href="http://lucene.apache.org/solr/resources.html">solr resources</a> for more solr documentations. For more details of setting up JATE2.0 plugin, please refer to the <em>Step 8</em> in <a href="https://github.com/ziqizhang/jate/wiki/Quick-start">JATE2.0 Quick start</a>.</p>
+
+<p>This demo provides a default setting of core instance '<em>jateCore</em>'. Thus, briefly speaking, to make a quick start, you can simply make this work by 2-steps: </p>
+
+<p>1) place a JATE2.0 release into <code>$&lt;SOLR_HOME&gt;/contrib/jate/lib</code>; </p>
+
+<p>2) copy '<em>jateCore</em>' into data directory of your Solr server</p>
+
+<p>A script named '<em>start_solr_server</em>' provides a example of setting to start your solr server with a custom <em>data directory</em> from command-line.</p>
+
+<p>Note: Two important configurations files are <strong>/conf/schema.xml</strong> and <strong>/conf/solrconfig.xml</strong>.</p>
+
+<h2>
+<a id="ajax-solr-web-demo" class="anchor" href="#ajax-solr-web-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ajax solr web demo</h2>
+
+<p><em>It is recommended that you run solr with JATE2 plugin and check whether everything is setted up correctly.</em></p>
+
+<p>Next, you need to set up the ajax solr web front-end for the terminologies-driven faceted search and navigation. With default setting of '<em>Apache Solr with JATE2.0 plugin</em>' (Step 1), you can simply configure two settings in <strong>'config.js'</strong>: 1) Solr core URL; 2) term Recognition Service URL (i.e., JATE2.0 solr request handler).</p>
+
+<h1>
+<a id="how-to-run" class="anchor" href="#how-to-run" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to run</h1>
+
+<p>After few simply settings introduced above, you need to:</p>
+
+<p>1) First, start your solr server by using <code>start_solr_server.sh</code> from command-line; </p>
+
+<p>2) next, using <code>index_local_directory.sh</code> to index your local documents from command-line; </p>
+
+<p>3) then, you can simply open <code>home.html</code> (Alternatively, if you deploy '<em>JATE2-Web-Demo</em>' into your favorite HTTP server(e.g., Apache Tomcat), you can simply request <code>http://&lt;SERVER_HOST&gt;:&lt;SERVER_PORT&gt;/JATE2-Web-Demo</code>.</p>
+
+<p>You can clean your index by clicking '<em>Clean all</em>' button for preparing for a different corpus. You can always populate new documents and simply click '<em>Term Recognition</em>' button to re-index your corpus. You can also change a different ATE algorithm or thresholds (in 'solrconfig.xml'), which needs a 'restart' or 'reload' your core. Then, you can perform term recognition again and try out the hybrid search functionalities.</p>
+
+<h1>
+<a id="live-demo" class="anchor" href="#live-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live demo</h1>
+
+<p>A live demo is up and running during the LREC 2016 conference (between 23rd May and 29th May).</p>
+
+<h2>
+<a id="demo-page-for-knowledge-retrieval" class="anchor" href="#demo-page-for-knowledge-retrieval" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo page for knowledge retrieval</h2>
+
+<pre><code>http://oakanalysis.shef.ac.uk:8090/JATE2-Web-Demo
+</code></pre>
+
+<h2>
+<a id="demo-setting-of-apache-solr" class="anchor" href="#demo-setting-of-apache-solr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo setting of Apache Solr</h2>
+
+<p>You may looking into JATE2.0 setting in Apache Solr server, e.g., by 'Schema Browser'. You can also try out how content will be extracted into candidate terms with 'jate_cterms' by 'Analysis' tool.</p>
+
+<pre><code>http://oakanalysis.shef.ac.uk:8983/solr/#/jateCore
+</code></pre>
+
+<p><strong>To cite JATE</strong>: Zhang, Z., Gao, J., Ciravegna, F. 2016. JATE 2.0: Java Automatic Term Extraction with Apache Solr. To appear: Proceedings of the 10th Language Resources and Evaluation Conference, May 2016, Portorož, Slovenia</p>
+
+<h2>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>If you have encountered with any problem, please feel free to contact us either via email or <a href="https://groups.google.com/d/forum/jate2">JATE2.0 mailling list</a> available on Google Groups.</p>
+
+<p></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jerrygaoLondon/jateSolrPluginDemo">Jatesolrplugindemo</a> is maintained by <a href="https://github.com/jerrygaoLondon">jerrygaoLondon</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
