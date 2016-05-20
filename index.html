@@ -25,6 +25,25 @@
 <p>Demo source code for presenting <a href="https://github.com/ziqizhang/jate">JATE2.0</a> as content analysis tool in LREC 2016</p>
 
 <h1>
+<a id="live-demo" class="anchor" href="#live-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live demo</h1>
+
+<p>A live demo is up and running during the LREC 2016 conference (between 23rd May and 29th May).</p>
+
+<h2>
+<a id="demo-page-for-knowledge-retrieval" class="anchor" href="#demo-page-for-knowledge-retrieval" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo page for knowledge retrieval</h2>
+
+<pre><code>http://oakanalysis.shef.ac.uk:8090/JATE2-Web-Demo
+</code></pre>
+
+<h2>
+<a id="demo-setting-of-apache-solr" class="anchor" href="#demo-setting-of-apache-solr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo setting of Apache Solr</h2>
+
+<p>You may looking into JATE2.0 setting in Apache Solr server, e.g., by 'Schema Browser'. You can also try out how content will be processed and indexed with candidate terms by 'jate_cterms' analyser in Solr 'Analysis' tool.</p>
+
+<pre><code>http://oakanalysis.shef.ac.uk:8983/solr/#/jateCore
+</code></pre>
+
+<h1>
 <a id="overview-of-jate20-plugin-mode" class="anchor" href="#overview-of-jate20-plugin-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview of JATE2.0 plugin mode</h1>
 
 <p>The JATE2.0 plugin mode is designed to enable JATE2.0 to work as a Solr plugin. This mode makes it easy to scale up and down for different sizes of corpus and is recommended when users need to index new or enrich existing index with domain specific terminologies, which can, e.g., support faceted search, boost query. A custom request handler can support to process candidate term extraction, scoring, ranking, filtering, indexing and export by a simply HTTP request.</p>
@@ -94,25 +113,6 @@
 <p>3) then, you can simply open <code>home.html</code> (Alternatively, if you deploy '<em>JATE2-Web-Demo</em>' into your favorite HTTP server(e.g., Apache Tomcat), you can simply request <code>http://&lt;SERVER_HOST&gt;:&lt;SERVER_PORT&gt;/JATE2-Web-Demo</code>.</p>
 
 <p>You can clean your index by clicking '<em>Clean all</em>' button for preparing for a different corpus. You can always populate new documents and simply click '<em>Term Recognition</em>' button to re-index your corpus. You can also change a different ATE algorithm or thresholds (in 'solrconfig.xml'), which needs a 'restart' or 'reload' your core. Then, you can perform term recognition again and try out the hybrid search functionalities.</p>
-
-<h1>
-<a id="live-demo" class="anchor" href="#live-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live demo</h1>
-
-<p>A live demo is up and running during the LREC 2016 conference (between 23rd May and 29th May).</p>
-
-<h2>
-<a id="demo-page-for-knowledge-retrieval" class="anchor" href="#demo-page-for-knowledge-retrieval" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo page for knowledge retrieval</h2>
-
-<pre><code>http://oakanalysis.shef.ac.uk:8090/JATE2-Web-Demo
-</code></pre>
-
-<h2>
-<a id="demo-setting-of-apache-solr" class="anchor" href="#demo-setting-of-apache-solr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo setting of Apache Solr</h2>
-
-<p>You may looking into JATE2.0 setting in Apache Solr server, e.g., by 'Schema Browser'. You can also try out how content will be extracted into candidate terms with 'jate_cterms' by 'Analysis' tool.</p>
-
-<pre><code>http://oakanalysis.shef.ac.uk:8983/solr/#/jateCore
-</code></pre>
 
 <p><strong>To cite JATE</strong>: Zhang, Z., Gao, J., Ciravegna, F. 2016. JATE 2.0: Java Automatic Term Extraction with Apache Solr. To appear: Proceedings of the 10th Language Resources and Evaluation Conference, May 2016, Portorož, Slovenia</p>
 
