@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JATE2 DEMO - JATE For Knowledge Retrieval</title>
+    <link href="images/JATE2-logo.JPG" rel="shortcut icon">
+    <link rel="stylesheet" href="css/jate-demo.css">
+    <link rel="stylesheet" href="css/search_bar.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css">
+
+    <script src="../config.js"></script>
+
+    <!-- test for nicEdit js for Rich text editor-->
+    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+
+    <!-- customisation needed css,js...-->
+
+    <script src="js/jate-demo.js"></script>
+    <script src="../core/Core.js"></script>
+    <script src="../core/AbstractManager.js"></script>
+    <script src="../managers/Manager.jquery.js"></script>
+    <script src="../core/Parameter.js"></script>
+    <script src="../core/ParameterStore.js"></script>
+    <script src="../core/AbstractWidget.js"></script>
+    <script src="widgets/ResultWidget.js"></script>
+    <script src="../widgets/jquery/PagerWidget.js"></script>
+    <script src="../core/AbstractFacetWidget.js"></script>
+    <script src="widgets/TagcloudWidget.js"></script>
+    <script src="widgets/CurrentSearchWidget.9.js"></script>
+    <script src="../core/AbstractTextWidget.js"></script>
+    <script src="widgets/AutocompleteWidget.js"></script>
+    <!--<script src="widgets/CountryCodeWidget.js"></script>-->
+    <!--<script src="widgets/CalendarWidget.js"></script>-->
+
+    <script type="text/javascript">
+	function cleanAll() {
+		var solrCore = config.solrCoreURL;
+		//rectify url
+		if (solrCore.substring(solrCore.length-1) == "/") {
+		   solrCore = solrCore.substring(0, solrCore.length-1);
+		}
+		
+		$.ajax({
+			url: solrCore+"/update?stream.body=<delete><query>*:*</query></delete>&commit=true",
+			type: 'GET',
+			data: {"wt":"json"},
+			beforeSend: function(){
+				$("#systemMsg").html("<h2>cleaning index ...</h2>");
+			},
+			success: function(data){
+				$("#systemMsg").html("<h2>Current index are cleaned. You can reindex and retag now.</h2>");
+				$("#systemMsg").delay(1000).fadeIn(300);
+				$("#systemMsg").delay(5000).fadeOut(300);
+			},
+			error: function(xhr, status, error){
+			    //alert('Error: '+error.message+". Please try it later!");
+				var result = $.parseJSON(xhr.responseText)
+				
+				$("#systemMsg").html("<h2> Error while indexing: "+result['error']['msg']+".</h2>");
+				$("#systemMsg").delay(1000).fadeIn(300);
+				$("#systemMsg").delay(7000).fadeOut(300);
+			}		
+		});		
+	}
+	
+	/**
+	* term scoring, ranking, filtering, indexing, storing and exporting triggered by a HTTP request
+	*/
+	function termRecognition() {
+		// config is a object defined in config.js
+		var termRecognitionServiceURL = config.termRecognitionServiceURL;
+		$.ajax({
+		    type: "POST",
+			url: termRecognitionServiceURL,
+			data: {"wt":"json"},
+			beforeSend: function(){
+				$("#systemMsg").html("<h2>starting indexing and tagging textual attachments...</h2>");
+			},
+			success: function(response) {
+				//var result = $.parseJSON(response);		
+				
+				$("#systemMsg").html("<h2>Term recognition process is complete now.</h2>");
+				
+				$("#systemMsg").delay(1000).fadeIn(300);
+				$("#systemMsg").delay(10000).fadeOut(300);
+			},
+			error: function(xhr, status, error){			
+			    //if (error == 'undefined') {
+				// var result = JSON.stringify(eval("("+xhr.responseText+ ")"));
+				var result = $.parseJSON(xhr.responseText)
+				if (xhr.readyState == 0) {
+					$("#systemMsg").html("<h2>Connection refused. Terminology recognition service is not started. Please ask your administrator for help.</h2>");					
+				} else {
+					$("#systemMsg").html("<h2> Error while processing: "+ result['error']['msg'] +".</h2> \n traces: <p>"+result['error']['trace']+"</p>");
+					
+				}
+				
+				$("#systemMsg").delay(1000).fadeIn(300);
+				$("#systemMsg").delay(10000).fadeOut(500);
+			}	
+		});
+	}
+	
+	function displaySettings() {
+		if ($('#setting1').css('display') == 'block') {
+			$('#setting1').hide('slow');				
+			$('#setting2').hide('slow');
+			$('#setting3').hide('slow');
+		} else {
+			$('#setting1').show('slow');
+			$('#setting2').show('slow');
+			$('#setting3').show('slow');
+		}
+	}
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <div class="headLeft">
+            <a href="https://github.com/ziqizhang/jate" alt="JATE2 Home">
+                <img src="images/JATE2-logo.JPG" alt="JATE2 home page icon" class='logoText2'/>
+            </a>
+        </div>
+        <div class="headRight">
+            <h1>Content Analytics</h1>
+
+            <h2>with domain-specific terminology </h2>
+        </div>
+    </div>
+    <div style="text-align:center">
+
+        <ul id="search">
+            <input type="text" id="query" name="query" autocomplete="off"
+                   placeholder="enter terms. use quotation marks for a more precise search">
+        </ul>
+        <span id="search_help">(press ESC to close suggestions)</span>
+
+        <div id="systemMsg"></div>
+    </div>
+
+    <div class="right">
+        <div id="result">
+            <div id="navigation">
+                <ul id="pager"></ul>
+                <div id="pager-header"></div>
+            </div>
+            <div id="docs"></div>
+        </div>
+    </div>
+
+    <div class="left">
+        <h2>
+            <image src="images/settings_3.png" alt="setting" style="cursor: pointer; width:40px; height: 40px;"
+                   onmouseover="" onclick="displaySettings();"/>
+        </h2>
+        <ul style="margin-left:30px; display:none;" id="setting1">
+            <div>
+                <button class="button" id="clean_all_button" alt="clear all index" style="display:block" onclick="cleanAll();">Clean all
+                </button>
+                <image src="images/ajax-clean-loader.gif" id="clean_waiting" style="display:None"/>
+            </div>
+        </ul>
+        <ul style="margin-left:30px; margin-top:10px; display:none;" id="setting2">
+            <div>
+                <button class="button" id="batch_processing" alt="term extraction, indexing and tagging" style="display:block" onclick="termRecognition();">Term Recognition
+                </button>
+            </div>
+        </ul>
+
+        <h2>Current Selection</h2>
+        <ul id="selection"></ul>
+
+        <h2>Top domain terms</h2>
+		<!-- jate_domain_terms id corresponds to TagcloudWidget setting in jate-demo.js -->
+        <div class="tagcloud" id="jate_domain_terms"></div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+</body>
+</html>
