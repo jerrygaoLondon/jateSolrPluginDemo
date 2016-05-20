@@ -39,7 +39,7 @@ This demo provides a default setting of core instance '*jateCore*'. Thus, briefl
 
 2) copy '*jateCore*' into data directory of your Solr server
 
-    A script named '*start_solr_server*' provides a example of setting to start your solr server with a custom *data directory* from command-line.
+A script named '*start_solr_server*' provides a example of setting to start your solr server with a custom *data directory* from command-line.
 
 Note: Two important configurations files are **<jateCore>/conf/schema.xml** and **<jateCore>/conf/solrconfig.xml**.
 
