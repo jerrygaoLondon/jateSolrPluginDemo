@@ -94,4 +94,4 @@ If you have encountered with any problem, please feel free to contact us either 
 [solr resources]: <http://lucene.apache.org/solr/resources.html>
 [solr plugin]: <https://cwiki.apache.org/confluence/display/solr/Solr+Plugins>
 [JATE2.0 Quick start]: <https://github.com/ziqizhang/jate/wiki/Quick-start>
-JATE2.0 mailling list]: <https://groups.google.com/d/forum/jate2>
+[JATE2.0 mailling list]: <https://groups.google.com/d/forum/jate2>
