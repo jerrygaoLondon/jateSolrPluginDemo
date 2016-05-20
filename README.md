@@ -82,7 +82,7 @@ http://oakanalysis.shef.ac.uk:8983/solr/#/jateCore
 
 ## Contact
 
-If you have encountered with any problem, please feel free to contact us either via email or [JATE2.0 mailling list] available on [Google Groups].
+If you have encountered with any problem, please feel free to contact us either via email or [JATE2.0 mailling list] available on Google Groups.
 
 <reference>
 
