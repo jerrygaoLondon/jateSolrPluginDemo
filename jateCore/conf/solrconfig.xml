@@ -1647,7 +1647,7 @@
 	 <bool name="indexTerm">true</bool>
 	 <bool name="boosting">true</bool>
      <float name="-cf.t">0</float>
-     <str name="-o">C:\\oak-project\\SPTR\\termRecogniser\\solr-5.3.0\\data\\jateCore\industry_terms07052016.json</str>
+     <str name="-o">../cvalue-terms.json</str>
      </lst>
     </requestHandler>
 
