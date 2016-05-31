@@ -339,8 +339,12 @@
         Use true to enable this safety check, which can help
         reduce the risk of propagating index corruption from older segments 
         into new ones, at the expense of slower merging.
+		
+		Deprecated since 5.x and removed since 6.x
+		
+		<checkIntegrityAtMerge>false</checkIntegrityAtMerge>
     -->
-     <checkIntegrityAtMerge>false</checkIntegrityAtMerge>
+     
   </indexConfig>
 
 
